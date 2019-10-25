@@ -2,7 +2,7 @@
 
 Interested in using FeaturePeek? Take a look at this repository to get an idea of how it works.
 
-✨ [Create an account](https://dashboard.featurepeek.com/login)
+✨ [Create an account](https://dashboard.featurepeek.com)
 
 🔮 [View pull requests for links to live demos](https://github.com/featurepeek/marketing-website/pulls)
 
@@ -14,7 +14,7 @@ This is the GitHub repository for the front-end source code of [featurepeek.com]
 
 There are two files in particular to pay attention to:
 
-- [peek.yaml](https://github.com/featurepeek/marketing-website/blob/dev/peek.yaml): This is the project config file -- it's how you indicate which of your organization's repositories you'd like to spin up on FeaturePeek. 
+- [peek.yml](https://github.com/featurepeek/marketing-website/blob/dev/peek.yml): This is the project config file -- it's how you indicate which of your organization's repositories you'd like to spin up on FeaturePeek. 
 - [.circleci/config.yml](https://github.com/featurepeek/marketing-website/blob/dev/.circleci/config.yml#L71): This project uses [CircleCI](https://circleci.com) for Continuous Integration, but you can bring along any other CI service. Take a look at this file to see how easy it is to set up FeaturePeek in your CI pipeline. 
 
 ## Development

@@ -12,6 +12,16 @@ module.exports = {
     social: {
       twitter: `featurepeek`,
     },
+    authors: {
+      jasonbarry: {
+        name: 'Jason Barry',
+        title: 'FeaturePeek Co-founder',
+      },
+      ericsilverman: {
+        name: 'Eric Silverman',
+        title: 'Co-founder & CEO',
+      },
+    }
   },
   plugins: [
     {
@@ -78,10 +88,23 @@ module.exports = {
       }
     },
     {
+      resolve: 'gatsby-source-mailchimp',
+      options: {
+        key: process.env.MAILCHIMP_API_KEY,
+        rootURL: 'https://us20.api.mailchimp.com/3.0',
+      },
+    },
+    {
       resolve: 'gatsby-plugin-mailchimp',
       options: {
         endpoint: `https://${process.env.MAILCHIMP_DOMAIN}/subscribe/post?u=${process.env.MAILCHIMP_FORM_ID}&id=${process.env.MAILCHIMP_LIST_ID}`,
       }
-    }
+    },
+    {
+      resolve: `gatsby-plugin-disqus`,
+      options: {
+        shortname: `featurepeek`,
+      }
+    },
   ],
 }

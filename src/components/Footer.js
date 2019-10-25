@@ -1,11 +1,10 @@
 // @flow
-import React, { useState } from 'react'
+import React from 'react'
 import Box from 'ui-box'
 import MediaQuery from 'react-responsive'
-import addToMailchimp from 'gatsby-plugin-mailchimp'
 
-import { Column, Flex, Icon, ListItem, Link, Paragraph, Strong, TextInput, UnorderedList } from 'primitives'
-import { track } from 'utils/analytics'
+import { Column, Flex, Icon, ListItem, Link, Paragraph, Strong, UnorderedList } from 'primitives'
+import JoinMailingList from 'components/JoinMailingList'
 
 const socials = [
   {
@@ -66,13 +65,12 @@ const columns = [
         target: '_blank',
       },
       {
-        text: 'Roadmap',
-        href: 'https://trello.com/b/KlPuYOCp/featurepeek-public-roadmap',
-        target: '_blank',
+        text: 'Product updates',
+        href: '/product-updates',
       },
       {
-        text: 'Status',
-        href: 'https://updown.io/ratp',
+        text: 'Demo',
+        href: 'https://dashboard.featurepeek.com/demo',
         target: '_blank',
       },
     ],
@@ -80,6 +78,10 @@ const columns = [
   {
     section: 'Company',
     links: [
+      // {
+      //   text: 'Blog',
+      //   href: '/blog',
+      // },
       {
         text: 'Privacy policy',
         href: '/pdfs/privacy.pdf',
@@ -108,18 +110,6 @@ const columns = [
 ]
 
 export default function Footer(styles) {
-  const [email, setEmail] = useState('')
-  const [subscribedEmail, setSubscribedEmail] = useState('')
-
-  const handleSubmit = event => {
-    event.preventDefault()
-    addToMailchimp(email).then(() => {
-      track('Joined Waitlist', { email })
-      setEmail('')
-      setSubscribedEmail(email)
-    })
-  }
-
   return (
     <MediaQuery maxWidth={800}>
       {mobile => (
@@ -148,45 +138,7 @@ export default function Footer(styles) {
                 FeaturePeek shortens feedback loops for teams building web products. Enter your email below to receive
                 our newsletter about the software development lifecycle.
               </Paragraph>
-              <form onSubmit={handleSubmit}>
-                <Flex>
-                  <TextInput
-                    background="#0d5166"
-                    color="white"
-                    marginRight={8}
-                    name="email"
-                    onChange={e => setEmail(e.target.value)}
-                    placeholder={
-                      mobile
-                        ? 'Email address'
-                        : `Enter your email address ${email.length === 0 ? 'to join our mailing list' : ''}`
-                    }
-                    type="email"
-                    value={email}
-                  />
-                  {email.length > 0 && (
-                    <input
-                      // disabled
-                      type="submit"
-                      value="Join mailing list"
-                      style={{
-                        background: '#0d5166',
-                        color: 'white',
-                        border: 0,
-                        borderRadius: 8,
-                        marginTop: mobile ? 24 : 0,
-                        padding: '8px 12px',
-                        whiteSpace: 'nowrap',
-                      }}
-                    />
-                  )}
-                </Flex>
-              </form>
-              {subscribedEmail && (
-                <Paragraph color="white" fontSize={13}>
-                  {subscribedEmail} has been added to the list.
-                </Paragraph>
-              )}
+              <JoinMailingList dark />
             </Column>
             <Column flexGrow={2} marginLeft={mobile ? 0 : 96}>
               <Flex>
