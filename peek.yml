@@ -1,1 +1,9 @@
-staticBuildPath: /public
+version: 2
+
+main:
+  type: static
+  path: /public
+
+storybook:
+  type: static
+  path: .out

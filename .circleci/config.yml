@@ -9,7 +9,7 @@ jobs:
       # specify the version you desire here
       - image: circleci/node:10.14
 
-    working_directory: ~/marketing-website
+    working_directory: ~/marketing
 
     steps:
       - checkout
@@ -41,3 +41,48 @@ jobs:
       - run:
           name: Pinging FeaturePeek
           command: bash <(curl -s https://dev.peek.run/ci) -d
+
+  storybook:
+    docker:
+      # specify the version you desire here
+      - image: circleci/node:10.14
+
+    working_directory: ~/storybook
+
+    steps:
+      - checkout
+
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+          - v1-dependencies-{{ checksum "yarn.lock" }}
+          # fallback to using the latest cache if no exact match is found
+          - v1-dependencies-
+
+      # install dependencies
+      - run: 
+          name: Installing dependencies
+          command: yarn install
+
+      # save to cache
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "yarn.lock" }}
+
+      # build phase
+      - run:
+          name: Build static assets
+          command: yarn storybook:build
+
+      # notify featurepeek
+      - run:
+          name: Pinging FeaturePeek
+          command: bash <(curl -s https://dev.peek.run/ci) -a storybook -d
+
+workflows:
+  version: 2
+  build_and_storybook:
+    jobs:
+      - build
+      - storybook
