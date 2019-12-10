@@ -2,7 +2,7 @@
   "name": "featurepeek-marketing",
   "private": true,
   "description": "The public website of https://featurepeek.com",
-  "version": "0.1.0",
+  "version": "1.2.3",
   "author": "Jason Barry <jason@featurepeek.com>",
   "bugs": {
     "url": "https://github.com/featurepeek/marketing/issues"
